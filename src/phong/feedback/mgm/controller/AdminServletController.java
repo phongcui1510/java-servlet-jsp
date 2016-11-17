@@ -55,12 +55,14 @@ public class AdminServletController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void createStudent(Student student, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void createStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Student student = extractParam(request);
 		int result = studentDAO.insertStudent(student);
 		if (result > 0) {
 			logger.info("Redirect to view student after inserting successful" );
-			Student savedStudent = studentDAO.findStudentByUsername(student.getUsername());
-			response.sendRedirect(request.getContextPath() + "/admin/user/view?username=" + savedStudent.getUsername());
+//			Student savedStudent = studentDAO.findStudentByUsername(student.getUsername());
+//			response.sendRedirect(request.getContextPath() + "/admin/user/view?username=" + savedStudent.getUsername());
+			response.sendRedirect(request.getContextPath() + "/admin/user/list");
 		}
 	}
 	
@@ -98,19 +100,36 @@ public class AdminServletController extends HttpServlet {
 			if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("get")) {
 				response.sendRedirect(request.getContextPath() + "/pages/admin/userCreate.jsp");
 			} else if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("post")) {
-				Student student = extractParam(request);
-				createStudent(student, request, response);
+				createStudent(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("view")){
 				viewStudent(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("edit") && method.equalsIgnoreCase("get")) {
-				editStudent(request, response);
+				redirectEditPage(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("edit") && method.equalsIgnoreCase("post")) {
-				
+				updateStudent(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("list")) {
-				request.getRequestDispatcher("/pages/admin/userList.jsp").forward(request,response);
+				listStudent(request, response);
 			}
 		} else if (partialUrl[0].equalsIgnoreCase("faculty")) {
 			
+		}
+	}
+
+	private void listStudent(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Student> students = studentDAO.findAllStudent();
+		request.setAttribute("students", students);
+		request.getRequestDispatcher("/pages/admin/userList.jsp").forward(request,response);
+	}
+
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Student student = extractParam(request);
+		int result = studentDAO.updateStudent(student);
+		if (result > 0) {
+			logger.info("Redirect to view student after updating successful" );
+//					Student savedStudent = studentDAO.findStudentByUsername(student.getUsername());
+//					response.sendRedirect(request.getContextPath() + "/admin/user/view?username=" + savedStudent.getUsername());
+			response.sendRedirect(request.getContextPath() + "/admin/user/list");
 		}
 	}
 
@@ -143,7 +162,7 @@ public class AdminServletController extends HttpServlet {
 		}
 	}
 
-	private void editStudent(HttpServletRequest request, HttpServletResponse response)
+	private void redirectEditPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		logger.info("Edit Student with username: " + username);

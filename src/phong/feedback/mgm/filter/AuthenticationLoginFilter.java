@@ -17,13 +17,11 @@ public class AuthenticationLoginFilter implements Filter {
 
 	private ServletContext context;
 	
-	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -34,16 +32,15 @@ public class AuthenticationLoginFilter implements Filter {
 		
 		HttpSession session = req.getSession(false);
 		
-		if(session == null || (session != null && session.getAttribute("user") == null)){
+		if(session == null || (session != null && session.getAttribute("currentUser") == null)){
 			this.context.log("Unauthorized access request");
-			res.sendRedirect(req.getContextPath() + "/login.jsp");
+			res.sendRedirect(req.getContextPath() + "/home");
 		}else{
 			// pass the request along the filter chain
 			chain.doFilter(request, response);
 		}
 	}
 
-	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.context = fConfig.getServletContext();
 		this.context.log("AuthenticationFilter initialized");

@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Insert title here</title>
 </head>
 <body>
-<a href="admin/login">Login as Admin</a><br/>
-<a href="faculty/login">Login as Faculty</a><br/>
-<a href="student/login">Login as Student</a>
+
 </body>
 </html>

@@ -7,6 +7,11 @@ public class Feedback {
 	private String description;
 	private String owner;
 	private String date;
+	public Feedback(){};
+	public Feedback(String title, String description){
+		this.title = title;
+		this.description = description;
+	};
 	public Integer getId() {
 		return id;
 	}
