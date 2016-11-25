@@ -17,6 +17,14 @@
     <servlet-name>AdminServletController</servlet-name>
     <url-pattern>/admin/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>StudentServletController</servlet-name>
+    <servlet-class>phong.feedback.mgm.controller.StudentServletController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentServletController</servlet-name>
+    <url-pattern>/student/*</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>AuthenticationLoginFilter</filter-name>
     <filter-class>phong.feedback.mgm.filter.AuthenticationLoginFilter</filter-class>
@@ -24,6 +32,9 @@
   <filter-mapping>
     <filter-name>AuthenticationLoginFilter</filter-name>
     <url-pattern>/pages/admin/*</url-pattern>
+    <url-pattern>/admin/user/**</url-pattern>
+    <url-pattern>/admin/faculty/**</url-pattern>
+    <url-pattern>/student/feedback/**</url-pattern>
   </filter-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

@@ -3,6 +3,7 @@ package phong.feedback.mgm.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ private static final Logger logger = Logger.getLogger (FeedbackDAO.class);
 			ps.setString(1, feedback.getTitle());  
 			ps.setString(2, feedback.getDescription());  
 			ps.setString(3, feedback.getOwner());
-			ps.setString(4, new Date().toString());
+			ps.setDate(4, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
 
 			int i = ps.executeUpdate();  
 			if (i>0) {

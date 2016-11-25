@@ -5,17 +5,34 @@ public class Student {
 	public Integer id;
 	public String username;
 	public String password;
+	public String firstName;
+	public String lastName;
 	public String address;
 	public String dob;
 	public String email;
 	public Student(){};
-	public Student(Integer id, String username, String password, String address, String dob, String email) {
+	public Student(Integer id, String username, String password, String firstName, String lastName, String address, String dob, String email) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
 		this.dob = dob;
 		this.email = email;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public Integer getId() {
 		return id;

@@ -26,46 +26,55 @@
 			<div class="col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Student Registration</h3>
+						<h3 class="panel-title">${title}</h3>
 					</div>
 					<div class="panel-body">
 						<form action="${action}" method="post">
 							<fieldset>
-								<c:if test="${not empty student}">
+								<c:if test="${not empty user}">
 									<div class="form-group">
-										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${student.id}">
+										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.id}">
 									</div>
 									<div class="form-group">
-										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${student.username}">
+										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.username}">
 									</div>
 									<div class="form-group">
-										<input class="form-control" placeholder="Username" name="username" type="hidden" autofocus value="${student.username}">
+										<input class="form-control" placeholder="Username" name="username" type="hidden" autofocus value="${user.username}">
 									</div>
 								</c:if>
-								<c:if test="${empty student}">
+								<c:if test="${empty user}">
 									<div class="form-group">
-										<input required id="username" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${student.username}">
+										<input required id="username" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.username}">
 									</div>
 								</c:if>
 								<div class="form-group">
-									<input required id="password" class="form-control" placeholder="Password" name="password" type="password" value="${student.password}">
+									<input required id="password" class="form-control" placeholder="Password" name="password" type="password" value="${user.password}">
 								</div>
 <%-- 								<c:if test="${empty student}"> --%>
 									<div class="form-group">
-										<input required id="confirmPassword" class="form-control" placeholder="Confirm Password" name="password" type="password" value="${student.password}">
+										<input required id="confirmPassword" class="form-control" placeholder="Confirm Password" name="password" type="password" value="${user.password}">
 									</div>
 <%-- 								</c:if> --%>
 								<div class="form-group">
-									<input required class="form-control" placeholder="Date Of Birth" name="dob" type="date" value="${student.dob}">
+									<input required class="form-control" placeholder="First Name" name="firstName" type="text" value="${user.address}">
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Email" name="email" type="email" value="${student.email}">
+									<input required class="form-control" placeholder="Last Name" name="lastName" type="text" value="${user.address}">
+								</div>
+								<div class="form-group">
+									<input required class="form-control" placeholder="Address" name="address" type="text" value="${user.address}">
+								</div>
+								<div class="form-group">
+									<input required class="form-control" placeholder="Date Of Birth" name="dob" type="date" value="${user.dob}">
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Email" name="email" type="email" value="${user.email}">
 								</div>
 								<label id="errormsg" style="color: red; display: none;"></label>
-								<c:if test="${not empty student}">
+								<c:if test="${not empty user}">
 									<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Edit">
 								</c:if>
-								<c:if test="${empty student}">
+								<c:if test="${empty user}">
 									<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Register">
 								</c:if>
 							</fieldset>

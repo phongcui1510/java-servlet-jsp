@@ -14,6 +14,7 @@ import phong.feedback.mgm.dao.FeedbackDAO;
 import phong.feedback.mgm.dao.StudentDAO;
 import phong.feedback.mgm.model.Feedback;
 import phong.feedback.mgm.model.Student;
+import phong.feedback.mgm.model.User;
 
 /**
  * Servlet implementation class StudentServletController
@@ -56,16 +57,10 @@ public class StudentServletController extends HttpServlet {
 		String method = request.getMethod();
 		logger.info("Full url: " + url);
 		logger.info("Method: " + method);
-		String[] str = url.split("/admin/");
+		String[] str = url.split("/student/");
 		logger.info("Extracted url: " + str[0] + "   " + str[1]);
 		String[] partialUrl = str[1].split("/");
-		if (partialUrl[0].equalsIgnoreCase("login")) {
-			if (method.equalsIgnoreCase("get")) {
-				redirectLoginPage(request, response);
-			} else if (method.equalsIgnoreCase("post")) {
-				checkLogin(request, response);
-			}
-		} else if (partialUrl[0].equalsIgnoreCase("feedback")) {
+		if (partialUrl[0].equalsIgnoreCase("feedback")) {
 			if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("get")) {
 				request.getRequestDispatcher("/pages/student/feedbackSubmit.jsp").forward(request,response);
 			} else if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("post")) {
@@ -73,46 +68,33 @@ public class StudentServletController extends HttpServlet {
 				int result = feebackDao.insertFeedback(feedback);
 				if (result>0) {
 					request.setAttribute("msg", "Submit feedback successfully");
-					request.getRequestDispatcher("/pages/student/feedback/create.jsp").forward(request,response);
+					request.getRequestDispatcher("/pages/student/feedbackSubmit.jsp").forward(request,response);
 				}
 			}
 		}
 	}
 	
-	private void redirectLoginPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String error = request.getParameter("errorMsg");
-		String msg = request.getParameter("msg");
-		if (error != null && !error.equalsIgnoreCase("")) {
-			request.setAttribute("errorMsg", error);
-		}
-		if (msg != null && !msg.equalsIgnoreCase("")) {
-			request.setAttribute("msg", msg);
-		}
-		request.getRequestDispatcher("/pages/student/login.jsp").forward(request,response);
-	}
+//	private void redirectLoginPage(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		String error = request.getParameter("errorMsg");
+//		String msg = request.getParameter("msg");
+//		if (error != null && !error.equalsIgnoreCase("")) {
+//			request.setAttribute("errorMsg", error);
+//		}
+//		if (msg != null && !msg.equalsIgnoreCase("")) {
+//			request.setAttribute("msg", msg);
+//		}
+//		request.getRequestDispatcher("/pages/student/login.jsp").forward(request,response);
+//	}
 	
-	private void checkLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		logger.info("Login with: username = " + username + " and password =  " + password);
-		Student user = studentDao.findStudentByUsernameAndPassword(username, password);
-		logger.info("User: " + user + "   " + (user == null));
-		if (user == null) {
-			response.sendRedirect(request.getContextPath() + "/admin/login?errorMsg=show");
-		} else {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("currentUser", user);
-			
-			request.getRequestDispatcher("/pages/student/feedback/create.jsp").forward(request,response);
-		}
-	}
 	
 	private Feedback extractParam(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		Feedback feedback = new Feedback(title, description);
+		User user = (User)session.getAttribute("currentUser");
+		feedback.setOwner(user.getFirstName() + " " + user.getLastName());
 		return feedback;
 	}
 }

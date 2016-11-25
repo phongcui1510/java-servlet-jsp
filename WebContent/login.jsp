@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,24 +12,12 @@
 <title>Login Page</title>
 </head>
 <body>
-	<!-- <form action="login" method="post">
-
-		Please enter your username 		
-		<input type="text" name="username"/><br>		
-	
-		Please enter your password
-		<input type="password" name="password"/>
-		
-		<input type="submit" value="Submit">			
-	
-	</form> -->
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Welcome to my site</h3>
+						<h3 class="panel-title">Login</h3>
 					</div>
 					<div class="panel-body">
 						<form action="login" method="post">
@@ -39,11 +28,10 @@
 								<div class="form-group">
 									<input class="form-control" placeholder="Password" name="password" type="password">
 								</div>
-								<!-- Change this to a button or input when using this as a form -->
+								<c:if test="${not empty errorMsg}">
+									<label style="color: red">${errorMsg}</label>
+								</c:if>
 								<input type="submit" class="btn btn-success btn-block" value="Login">
-<!-- 								<p>
-									New Member? <a href="signUp.html" class="">Sign up</a>
-								</p> -->
 							</fieldset>
 						</form>
 					</div>

@@ -90,15 +90,10 @@ public class AdminServletController extends HttpServlet {
 		String[] str = url.split("/admin/");
 		logger.info("Extracted url: " + str[0] + "   " + str[1]);
 		String[] partialUrl = str[1].split("/");
-		if (partialUrl[0].equalsIgnoreCase("login")) {
-			if (method.equalsIgnoreCase("get")) {
-				redirectLoginPage(request, response);
-			} else if (method.equalsIgnoreCase("post")) {
-				checkLogin(request, response);
-			}
-		} else if (partialUrl[0].equalsIgnoreCase("user")) {
+		if (partialUrl[0].equalsIgnoreCase("user")) {
 			if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("get")) {
-				response.sendRedirect(request.getContextPath() + "/pages/admin/userCreate.jsp");
+//				response.sendRedirect(request.getContextPath() + "/pages/admin/userCreate.jsp");
+				redirectStudentRegistrationPage(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("post")) {
 				createStudent(request, response);
 			} else if (partialUrl[1].equalsIgnoreCase("view")){
@@ -115,9 +110,15 @@ public class AdminServletController extends HttpServlet {
 		}
 	}
 
+	private void redirectStudentRegistrationPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("title", "Student Registration");
+		request.getRequestDispatcher("/pages/admin/userList.jsp").forward(request,response);
+	}
+
 	private void listStudent(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Student> students = studentDAO.findAllStudent();
+		List<User> students = userDao.findAllStudent();
 		request.setAttribute("students", students);
 		request.getRequestDispatcher("/pages/admin/userList.jsp").forward(request,response);
 	}
@@ -166,18 +167,21 @@ public class AdminServletController extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		logger.info("Edit Student with username: " + username);
-		Student student = studentDAO.findStudentByUsername(username);
-		request.setAttribute("student", student);
+		User user = userDao.findUserByUsername(username);
+		request.setAttribute("user", user);
+		request.setAttribute("title", "Student Edition");
 		request.getRequestDispatcher("/pages/admin/userCreate.jsp").forward(request,response);
 	}
 	
 	private Student extractParam(HttpServletRequest request) {
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String dob = request.getParameter("dob");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
-		Student student = new Student(null, name, password, address, dob, email);
+		Student student = new Student(null, name, password, firstName, lastName, address, dob, email);
 		return student;
 	}
 }
