@@ -38,6 +38,9 @@
 				<tr>
 					<th>ID</th>
 					<th>Username</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Address</th>
 					<th>Date Of Birth</th>
 					<th>Email</th>
 					<th>Action</th>
@@ -48,9 +51,12 @@
 					<tr>
 						<td>${student.id}</td>
 						<td>${student.username}</td>
+						<td>${student.firstName}</td>
+						<td>${student.lastName}</td>
+						<td>${student.address}</td>
 						<td>${student.dob}</td>
 						<td>${student.email}</td>
-						<td><a href="${context}/admin/user/edit?username=${student.username}">Edit</a></td>
+						<td><a href="${context}/admin/student/edit?username=${student.username}">Edit</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

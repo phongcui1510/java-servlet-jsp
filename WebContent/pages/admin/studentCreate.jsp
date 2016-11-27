@@ -14,11 +14,11 @@
 </head>
 <body>
 <c:set var="context" value="${pageContext.request.contextPath}" />
-<c:if test="${not empty student}">
-	<c:set var="action" value="${context}/admin/user/edit" />
+<c:if test="${not empty user}">
+	<c:set var="action" value="${context}/admin/student/edit" />
 </c:if>
-<c:if test="${empty student}">
-	<c:set var="action" value="${context}/admin/user/create" />
+<c:if test="${empty user}">
+	<c:set var="action" value="${context}/admin/student/create" />
 </c:if>
 <jsp:include page="navbar.jsp"></jsp:include>
 	<div class="container">
@@ -34,12 +34,11 @@
 								<c:if test="${not empty user}">
 									<div class="form-group">
 										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.id}">
+										<input name="userid" type="hidden" value="${user.id}">
 									</div>
 									<div class="form-group">
 										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.username}">
-									</div>
-									<div class="form-group">
-										<input class="form-control" placeholder="Username" name="username" type="hidden" autofocus value="${user.username}">
+										<input name="username" type="hidden" value="${user.username}">
 									</div>
 								</c:if>
 								<c:if test="${empty user}">
@@ -50,16 +49,14 @@
 								<div class="form-group">
 									<input required id="password" class="form-control" placeholder="Password" name="password" type="password" value="${user.password}">
 								</div>
-<%-- 								<c:if test="${empty student}"> --%>
-									<div class="form-group">
-										<input required id="confirmPassword" class="form-control" placeholder="Confirm Password" name="password" type="password" value="${user.password}">
-									</div>
-<%-- 								</c:if> --%>
 								<div class="form-group">
-									<input required class="form-control" placeholder="First Name" name="firstName" type="text" value="${user.address}">
+									<input required id="confirmPassword" class="form-control" placeholder="Confirm Password" name="password" type="password" value="${user.password}">
 								</div>
 								<div class="form-group">
-									<input required class="form-control" placeholder="Last Name" name="lastName" type="text" value="${user.address}">
+									<input required class="form-control" placeholder="First Name" name="firstName" type="text" value="${user.firstName}">
+								</div>
+								<div class="form-group">
+									<input required class="form-control" placeholder="Last Name" name="lastName" type="text" value="${user.lastName}">
 								</div>
 								<div class="form-group">
 									<input required class="form-control" placeholder="Address" name="address" type="text" value="${user.address}">

@@ -1,12 +1,14 @@
 package phong.feedback.mgm.model;
 
+import java.util.Date;
+
 public class Feedback {
 
 	private Integer id;
 	private String title;
 	private String description;
 	private String owner;
-	private String date;
+	private Date date;
 	public Feedback(){};
 	public Feedback(String title, String description){
 		this.title = title;
@@ -36,11 +38,11 @@ public class Feedback {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 }

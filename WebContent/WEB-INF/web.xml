@@ -39,8 +39,8 @@
     <filter-name>AuthenticationLoginFilter</filter-name>
 <!--     <url-pattern>/*</url-pattern> -->
     <url-pattern>/pages/admin/*</url-pattern>
-    <url-pattern>/admin/user/*</url-pattern>
-<!--     <url-pattern>/admin/faculty/**</url-pattern> -->
+    <url-pattern>/admin/student/*</url-pattern>
+    <url-pattern>/admin/faculty/*</url-pattern>
     <url-pattern>/student/*</url-pattern>
   </filter-mapping>
   <welcome-file-list>
@@ -49,7 +49,7 @@
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
   <context-param>
     <param-name>log4j-config-location</param-name>

@@ -8,14 +8,14 @@
     <ul class="nav navbar-nav">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Student<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="${context}/admin/user/list">All Student</a></li>
-          <li><a href="${context}/admin/user/create">Create Student</a></li>
+          <li><a href="${context}/admin/student/list">All Student</a></li>
+          <li><a href="${context}/admin/student/create">Create Student</a></li>
         </ul>
       </li>
-      <li><a href="#">Faculty</a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Faculty<span class="caret"></span></a>
       	<ul class="dropdown-menu">
-          <li><a href="#">All Faculty</a></li>
-          <li><a href="#">Create Faculty</a></li>
+          <li><a href="${context}/admin/faculty/list">All Faculty</a></li>
+          <li><a href="${context}/admin/faculty/create">Create Faculty</a></li>
         </ul>
       </li>
       <li><a href="#">Contact Us</a></li>

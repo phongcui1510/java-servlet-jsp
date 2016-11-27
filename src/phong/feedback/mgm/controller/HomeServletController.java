@@ -69,11 +69,11 @@ public class HomeServletController extends HttpServlet {
 			HttpSession session = request.getSession(true);	    
 			session.setAttribute("currentUser", user);
 			if (user.getRole().equalsIgnoreCase("ADMIN")) {
-				response.sendRedirect(request.getContextPath() + "/admin/user/list");
-//			request.send("/admin/user/list").forward(request,response);
-//				request.getRequestDispatcher("/login.jsp").forward(request,response);
-			} else if (user.getRole().equalsIgnoreCase("User")) {
+				response.sendRedirect(request.getContextPath() + "/admin/student/list");
+			} else if (user.getRole().equalsIgnoreCase("STUDENT")) {
 				response.sendRedirect(request.getContextPath() + "/student/feedback/create");
+			} else if (user.getRole().equalsIgnoreCase("FACULTY")) {
+				response.sendRedirect(request.getContextPath() + "/faculty/feedback/list");
 			}
 		} else {
 			request.setAttribute("errorMsg", "Username or Password wrong");

@@ -12,8 +12,15 @@ public class User {
 	private String address;
 	private Date dob;
 	private String email;
+	private String description;
 	private String role;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

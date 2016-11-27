@@ -2,9 +2,11 @@ package phong.feedback.mgm.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -43,5 +45,69 @@ private static final Logger logger = Logger.getLogger (FeedbackDAO.class);
 			}
 		}
 		return 0;
+	}
+	
+	public List<Feedback> getFeedbackByFaculty (int faculty) {
+		Connection con = ConnectionManager.getConnection();
+		try{  
+			String sql = "select * from feedback where faculty = ?";
+			PreparedStatement ps = con.prepareStatement(sql);  
+			ps.setInt(1, faculty);  
+			ResultSet rs = ps.executeQuery();
+			
+			List<Feedback> feedbacks = new ArrayList<Feedback>();
+			while (rs.next()) {
+				Feedback f = getFeedbackFromResultSet(rs);
+				feedbacks.add(f);
+			}
+			return feedbacks;
+
+		} catch (Exception e) {
+			logger.info("Insert Feedback get error with info: " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public Feedback getFeedbackById (int id) {
+		Connection con = ConnectionManager.getConnection();
+		try{  
+			String sql = "select * from feedback where id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);  
+			ps.setInt(1, id);  
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Feedback f = getFeedbackFromResultSet(rs);
+				return f;
+			}
+
+		} catch (Exception e) {
+			logger.info("Insert Feedback get error with info: " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	private Feedback getFeedbackFromResultSet(ResultSet rs) throws SQLException {
+		Feedback f = new Feedback();
+		f.setId(rs.getInt("id"));
+		f.setTitle(rs.getString("title"));
+		f.setDescription(rs.getString("description"));
+		f.setOwner(rs.getString("owner"));
+		f.setDate(rs.getDate("date"));
+		return f;
 	}
 }

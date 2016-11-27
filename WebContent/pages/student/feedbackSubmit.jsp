@@ -11,55 +11,154 @@
 <script type="text/javascript" src="<c:url value="/javascript/lib/jquery/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/javascript/lib/bootstrap/bootstrap.js"/>"></script>
 <title>Submit Feedback</title>
+<style type="text/css">
+	body {
+    background-color: #eee;
+}
+
+*[role="form"] {
+    max-width: 700px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.3em;
+}
+
+*[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+}
+	
+</style>
 </head>
 <body>
 <c:set var="context" value="${pageContext.request.contextPath}" />
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Feedback Management System</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Feedback<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="${context}/admin/user/list">All Feedback</a></li>
-          <li><a href="${context}/student/feedback/create">Send Feedback</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Contact Us</a></li>
-    </ul>
-    <ul class="nav navbar-nav" style="float: right">
-    	<li ><a href="${context}/logout">Logout</a></li>
-    </ul>
-    <p style="float: right; color: #9d9d9d; padding: 10px 15px 10px 15px">Login as ${currentUser.firstName} ${currentUser.lastName}</p>
-  </div>
-</nav>
+<jsp:include page="navbar.jsp"></jsp:include>
 <div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Submit Feedback</h3>
-					</div>
-					<div class="panel-body">
-						<form action="${action}" method="post">
-							<fieldset>
-								<div class="form-group">
-									<input required id="title" class="form-control" placeholder="Title" name="title" type="text" autofocus>
-								</div>
-								<div class="form-group">
-									<textarea style="resize: vertical;" required id="description" class="form-control" placeholder="Description" name="description" type="text"></textarea>
-								</div>
-								<c:if test="${not empty msg}">
-									<label id="msg" style="color: green;">${msg}</label>
-								</c:if>
-								<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Submit">
-							</fieldset>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <form class="form-horizontal" role="form" action="${context}/student/feedback/create">
+                <h2>Feedback Form</h2>
+                <div class="form-group">
+                    <label for="topic" class="col-sm-3 control-label">Topic Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="topic" placeholder="Topic" class="form-control" autofocus name="topic">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="col-sm-3 control-label">Subject Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="subject" placeholder="Subject Name" class="form-control" autofocus name=subject>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dov" class="col-sm-3 control-label">Date of Visit</label>
+                    <div class="col-sm-9">
+                        <input type="date" id="dov" class="form-control">
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q1: How was the focus of the talk good?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q1"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q1"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q1"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q1"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q1"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q2: How far you found the lecture useful?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q2"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q2"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q2"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q2"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q2"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                   <label for="email" style="padding-left: 50px">Q3: How far did the lecturer meet your expectation?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q3"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q3"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q3"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q3"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q3"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q4: How far the lecturer managed to capture you attention?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q4"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q4"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q4"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q4"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q4"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q5: How did you find the lecturer vocabulary?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q5"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q5"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q5"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q5"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q5"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q6: How far audience participation & interaction encouraged?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q6"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q6"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q6"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q6"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q6"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q7: How far the lecturer appeared enthusiastic about the subject?</label><br/>
+                    <div style="margin-left: 100px">
+                    	<div style="width: 100px; float: left"><input type="radio" value="Excellent" name="q7"><label style="font-weight: 100">Excellent</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Very Good" name="q7"><label style="font-weight: 100">Very Good</label></div>
+                    	<div style="width: 80px; float: left"><input type="radio" value="Good" name="q7"><label style="font-weight: 100">Good</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Average" name="q7"><label style="font-weight: 100">Average</label></div>
+                    	<div style="width: 100px; float: left"><input type="radio" value="Poor" name="q7"><label style="font-weight: 100">Poor</label></div>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q8: Was the content interesting?</label><br/>
+                    <div style="margin-left: 100px">
+	                   	<div style="width: 100px; float: left"><input type="radio" value="Yes" name="q8"><label style="font-weight: 100">Yes</label></div>
+	                   	<div style="width: 100px; float: left"><input type="radio" value="No" name="q8"><label style="font-weight: 100">No</label></div>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q9: Was the content understandable?</label><br/>
+                    <div style="margin-left: 100px">
+	                   	<div style="width: 100px; float: left"><input type="radio" value="Yes" name="q9"><label style="font-weight: 100">Yes</label></div>
+	                   	<div style="width: 100px; float: left"><input type="radio" value="No" name="q9"><label style="font-weight: 100">No</label></div>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q10: Was the clarity in the content?</label><br/>
+                    <div style="margin-left: 100px">
+	                   	<div style="width: 100px; float: left"><input type="radio" value="Yes" name="q10"><label style="font-weight: 100">Yes</label></div>
+	                   	<div style="width: 100px; float: left"><input type="radio" value="No" name="q10"><label style="font-weight: 100">No</label></div>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" style="padding-left: 50px">Q11: What suggestions do you have to improve the lectures approach?</label><br/>
+                    <div style="margin-left: 100px">
+	                   	<textarea name="q11" style="resize: none;height: 200px; width: 420px"></textarea>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <input type="submit" class="btn btn-success" value="Submit" style="width: 120px">
+                    </div>
+                </div>
+            </form> <!-- /form -->
+        </div> <!-- ./container -->
 </body>
 </html>

@@ -60,7 +60,11 @@ public class StudentServletController extends HttpServlet {
 		String[] str = url.split("/student/");
 		logger.info("Extracted url: " + str[0] + "   " + str[1]);
 		String[] partialUrl = str[1].split("/");
-		if (partialUrl[0].equalsIgnoreCase("feedback")) {
+		if (partialUrl[0].equalsIgnoreCase("changePass")) {
+			
+		} else if (partialUrl[0].equalsIgnoreCase("contactUs")) {
+			
+		} else if (partialUrl[0].equalsIgnoreCase("feedback")) {
 			if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("get")) {
 				request.getRequestDispatcher("/pages/student/feedbackSubmit.jsp").forward(request,response);
 			} else if (partialUrl[1].equalsIgnoreCase("create") && method.equalsIgnoreCase("post")) {
@@ -73,19 +77,6 @@ public class StudentServletController extends HttpServlet {
 			}
 		}
 	}
-	
-//	private void redirectLoginPage(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String error = request.getParameter("errorMsg");
-//		String msg = request.getParameter("msg");
-//		if (error != null && !error.equalsIgnoreCase("")) {
-//			request.setAttribute("errorMsg", error);
-//		}
-//		if (msg != null && !msg.equalsIgnoreCase("")) {
-//			request.setAttribute("msg", msg);
-//		}
-//		request.getRequestDispatcher("/pages/student/login.jsp").forward(request,response);
-//	}
 	
 	
 	private Feedback extractParam(HttpServletRequest request) {
