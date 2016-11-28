@@ -10,37 +10,68 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.css"/>" />
 <script type="text/javascript" src="<c:url value="/javascript/lib/jquery/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/javascript/lib/bootstrap/bootstrap.js"/>"></script>
+<style type="text/css">
+	body {
+    background-color: #eee;
+}
+
+*[role="form"] {
+    max-width: 700px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.3em;
+}
+
+*[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+}
+	
+</style>
 <title>Message</title>
 </head>
 <body>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <jsp:include page="navbar.jsp"></jsp:include>
 <div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Contact Us</h3>
-					</div>
-					<div class="panel-body">
-						<form action="${contect}/student/message" method="post">
-							<fieldset>
-								<div class="form-group">
-									<input required id="title" class="form-control" placeholder="To" name="to" type="text" autofocus>
-								</div>
-								<div class="form-group">
-									<input required id="title" class="form-control" placeholder="Subject" name="subject" type="text" autofocus>
-								</div>
-								<div class="form-group">
-									<textarea style="resize: vertical;" id="description" class="form-control" placeholder="Description" name="description" type="text"></textarea>
-								</div>
-								<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Submit">
-							</fieldset>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<form class="form-horizontal" role="form" action="${context}/student/message/create" method="post">
+         <h2>Send Message</h2>
+         <div class="form-group">
+             <label for="topic" class="col-sm-3 control-label">To</label>
+             <div class="col-sm-9">
+                <select name="destination" class="form-control" required>
+					<c:forEach items="${faculties}" var="faculty">
+						<option value="${faculty.id}">${faculty.username}</option>
+					</c:forEach>
+				</select>
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="topic" class="col-sm-3 control-label">Subject</label>
+             <div class="col-sm-9">
+                 <input type="text" id="subject" placeholder="Subject" class="form-control" autofocus name="subject" required>
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="topic" class="col-sm-3 control-label">Message</label>
+             <div class="col-sm-9">
+                 <textarea style="resize: none; height: 200px" id="description" class="form-control" placeholder="Message" name="message" type="text"></textarea>
+             </div>
+         </div>
+         <div class="form-group">
+             <div class="col-sm-9 col-sm-offset-3">
+                 <input type="submit" class="btn btn-success" value="Send" style="width: 120px">
+             </div>
+         </div>
+         <c:if test="${not empty msg }">
+	         <div class="form-group">
+	             <div class="col-sm-9 col-sm-offset-3">
+	                 <label style="color: green">${msg}</label>
+	             </div>
+	         </div>
+         </c:if>
+    </form>
+</div>
 </body>
 </html>

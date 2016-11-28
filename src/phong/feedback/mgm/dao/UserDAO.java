@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.LocalDeclaration;
 
 import phong.feedback.mgm.model.User;
 import phong.feedback.mgm.util.ConnectionManager;
@@ -214,7 +212,11 @@ public class UserDAO {
 			ps.setString(2, user.getPassword());  
 			ps.setString(3, user.getLastName());
 			ps.setString(4, user.getFirstName());
-			ps.setDate(5, new Date(user.getDob().getTime()));
+			if (user.getDob() != null) {
+				ps.setDate(5, new Date(user.getDob().getTime()));
+			} else {
+				ps.setDate(5, null);
+			}
 			ps.setString(6, user.getEmail());
 			ps.setString(7, user.getAddress());
 			ps.setString(8, user.getDescription());

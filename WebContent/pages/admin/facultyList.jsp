@@ -21,7 +21,6 @@
 				<tr>
 					<th>ID</th>
 					<th>Username</th>
-					<th>Description</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -30,8 +29,10 @@
 					<tr>
 						<td>${faculty.id}</td>
 						<td>${faculty.username}</td>
-						<td>${faculty.description}</td>
-						<td><a href="${context}/admin/faculty/edit?facultyid=${faculty.id}">Edit</a></td>
+						<td>
+							<a href="${context}/admin/faculty/edit?id=${faculty.id}" style="margin-right: 15px">Edit</a>
+							<a href="${context}/admin/faculty/details?id=${faculty.id}">View</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

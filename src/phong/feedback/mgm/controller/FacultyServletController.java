@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import phong.feedback.mgm.dao.FeedbackDAO;
+import phong.feedback.mgm.dao.MessageDAO;
 import phong.feedback.mgm.model.Feedback;
+import phong.feedback.mgm.model.Message;
 import phong.feedback.mgm.model.User;
 
 public class FacultyServletController extends HttpServlet {
@@ -26,8 +28,15 @@ public class FacultyServletController extends HttpServlet {
 	
 	private FeedbackDAO feedbackDao = new FeedbackDAO();
 	
+	private MessageDAO messageDao = new MessageDAO();
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		dispathRequest(request, response);
+	}
+
+	private void dispathRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		String method = request.getMethod();
 		logger.info("Full url: " + url);
@@ -35,25 +44,55 @@ public class FacultyServletController extends HttpServlet {
 		String[] str = url.split("/faculty/");
 		logger.info("Extracted url: " + str[0] + "   " + str[1]);
 		String[] partialUrl = str[1].split("/");
-		if (partialUrl[0].equalsIgnoreCase("feedbackList")) {
-			HttpSession session = request.getSession();
-			User user = (User)session.getAttribute("currentUser");
-			List<Feedback> feedbacks = feedbackDao.getFeedbackByFaculty(user.getId());
-			request.setAttribute("feedbacks", feedbacks);
-			request.getRequestDispatcher("/pages/faculty/feedbackList.jsp").forward(request,response);
-		} else if (partialUrl[0].equalsIgnoreCase("feedback")) {
-			if (partialUrl[1].equalsIgnoreCase("view") && method.equalsIgnoreCase("get")) {
-				String id = request.getParameter("feedback");
-				Feedback feedback = feedbackDao.getFeedbackById(Integer.valueOf(id));
-				request.setAttribute("feedback", feedback);
-				request.getRequestDispatcher("/pages/faculty/feedbackDetails.jsp").forward(request,response);
+		if (partialUrl[0].equalsIgnoreCase("feedback")) {
+			if (partialUrl[1].equalsIgnoreCase("list")) {
+				listFeedback(request, response);
+			} else if (partialUrl[1].equalsIgnoreCase("details")) {
+				feedbackDetails(request, response);
+			}
+		} else if (partialUrl[0].equalsIgnoreCase("message")) {
+			if (partialUrl[1].equalsIgnoreCase("list")) {
+				listMessage(request, response);
+			} else if (partialUrl[1].equalsIgnoreCase("details")) {
+				messageDetails(request, response);
 			}
 		}
 	}
 
+	private void feedbackDetails(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id = request.getParameter("feedback");
+		Feedback feedback = feedbackDao.getFeedbackById(Integer.valueOf(id));
+		request.setAttribute("feedback", feedback);
+		request.getRequestDispatcher("/pages/faculty/feedbackDetails.jsp").forward(request,response);
+	}
+
+	private void listFeedback(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Feedback> feedbacks = feedbackDao.getAllFeedback();
+		request.setAttribute("feedbacks", feedbacks);
+		request.getRequestDispatcher("/pages/faculty/feedbackList.jsp").forward(request,response);
+	}
+
+	private void messageDetails(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id = request.getParameter("message");
+		Message message = messageDao.getMessageById(Integer.valueOf(id));
+		request.setAttribute("message", message);
+		request.getRequestDispatcher("/pages/faculty/messageDetails.jsp").forward(request,response);
+	}
+
+	private void listMessage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("currentUser");
+		List<Message> messages = messageDao.getMessage(user.getId());
+		request.setAttribute("messages", messages);
+		request.getRequestDispatcher("/pages/faculty/messageList.jsp").forward(request,response);
+	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
 

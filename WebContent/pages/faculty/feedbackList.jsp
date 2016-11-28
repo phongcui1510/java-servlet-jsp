@@ -13,23 +13,27 @@
 <title>Feedback List</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp"></jsp:include>
 <div class="container">
 <c:set var="context" value="${pageContext.request.contextPath}" />
 	<table class="table table-condensed">
 		<thead>
 			<tr>
-				<th>Title</th>
-				<th>Owner</th>
+				<th>Topic</th>
+				<th>Subject</th>
+				<th>Sender</th>
 				<th>Date</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${feedbacks}" var="feedback">
 				<tr>
-					<td>${feedback.title}</td>
+					<td>${feedback.topic}</td>
+					<td>${feedback.subject}</td>
 					<td>${feedback.owner}</td>
 					<td>${feedback.date}</td>
-					<td><a href="${context}/facult/feedback/view?feedback=${student.username}">View Details</a></td>
+					<td><a href="${context}/faculty/feedback/details?feedback=${feedback.id}">View</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

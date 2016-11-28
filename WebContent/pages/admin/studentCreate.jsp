@@ -67,7 +67,7 @@
 								<div class="form-group">
 									<input class="form-control" placeholder="Email" name="email" type="email" value="${user.email}">
 								</div>
-								<label id="errormsg" style="color: red; display: none;"></label>
+								<label id="errormsg" style="color: red;">${errormsg}</label>
 								<c:if test="${not empty user}">
 									<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Edit">
 								</c:if>

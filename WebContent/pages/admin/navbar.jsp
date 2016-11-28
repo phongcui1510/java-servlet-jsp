@@ -18,7 +18,7 @@
           <li><a href="${context}/admin/faculty/create">Create Faculty</a></li>
         </ul>
       </li>
-      <li><a href="#">Contact Us</a></li>
+      <li><a href="${context}/admin/contact/list">Contact Us</a></li>
 <!--       <li style="float: right"><a href="#">Logout</a></li> -->
     </ul>
     <ul class="nav navbar-nav" style="float: right">

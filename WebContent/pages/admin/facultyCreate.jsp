@@ -35,6 +35,8 @@
 									<div class="form-group">
 										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${faculty.username}">
 										<input name="username" type="hidden" value="${faculty.username}">
+										<input name="id" type="hidden" value="${faculty.id}">
+										<input name=role type="hidden" value="${faculty.role}">
 									</div>
 								</c:if>
 								<c:if test="${empty faculty}">
@@ -51,7 +53,7 @@
 								<div class="form-group">
 									<textarea required class="form-control" placeholder="Description" type="text" name="description" style="resize: none; height: 200px">${faculty.description}</textarea>
 								</div>
-								<label id="errormsg" style="color: red; display: none;"></label>
+								<label id="errormsg" style="color: red;">${errormsg}</label>
 								<c:if test="${not empty faculty}">
 									<input id="submitBtn" type="submit" class="btn btn-success btn-block" value="Edit">
 								</c:if>
