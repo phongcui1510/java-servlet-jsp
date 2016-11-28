@@ -56,15 +56,15 @@ public class AdminServletController extends HttpServlet {
 		User student = extractParam(request);
 		User checkUser = userDao.findUserByUsername(student.getUsername());
 		if (checkUser == null) {
-			logger.info("Student username is already exists" );
-			request.setAttribute("errormsg", "Username is already exists");
-			request.getRequestDispatcher("/pages/admin/studentCreate.jsp").forward(request,response);
-		} else {
 			int result = userDao.insertUser(student);
 			if (result > 0) {
 				logger.info("Redirect to view student after inserting successful" );
 				response.sendRedirect(request.getContextPath() + "/admin/student/list");
 			}
+		} else {
+			logger.info("Student username is already exists" );
+			request.setAttribute("errormsg", "Username is already exists");
+			request.getRequestDispatcher("/pages/admin/studentCreate.jsp").forward(request,response);
 		}
 	}
 	

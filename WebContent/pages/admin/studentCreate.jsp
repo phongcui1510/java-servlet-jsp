@@ -34,7 +34,7 @@
 								<c:if test="${not empty user}">
 									<div class="form-group">
 										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.id}">
-										<input name="userid" type="hidden" value="${user.id}">
+										<input name="id" type="hidden" value="${user.id}">
 									</div>
 									<div class="form-group">
 										<input disabled="disabled" class="form-control" placeholder="Username" name="username" type="text" autofocus value="${user.username}">
