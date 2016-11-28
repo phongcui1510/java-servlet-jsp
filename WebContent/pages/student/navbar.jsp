@@ -11,6 +11,7 @@
       <li><a href="${context}/student/message/create">Message</a>
       </li>
       <li><a href="${context}/student/contact/create">Contact Us</a></li>
+      <li><a href="${context}/student/changePassword">Change Password</a></li>
     </ul>
     <ul class="nav navbar-nav" style="float: right">
     	<li ><a href="${context}/logout">Logout</a></li>
